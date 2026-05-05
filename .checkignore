@@ -1,0 +1,2 @@
+# Repo-local check suppressions for generated assets.
+check:ignore E_DUPLICATE_FILE .banner.png
