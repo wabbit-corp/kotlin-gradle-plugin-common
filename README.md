@@ -1,5 +1,12 @@
 # kotlin-gradle-plugin-common
 
+![](./.meta/github-project-banner.png)
+
+<p align=center>
+    <img src="https://img.shields.io/maven-central/v/one.wabbit/kotlin-gradle-plugin-common" alt="Maven Central">
+    <img src="https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF" alt="Kotlin Multiplatform">
+</p>
+
 `kotlin-gradle-plugin-common` is a shared Gradle-side helper library for Wabbit Kotlin
 compiler-plugin Gradle plugins.
 
@@ -18,7 +25,7 @@ published Gradle plugins instead:
 - `id("one.wabbit.typeclass")`
 - `id("one.wabbit.no-globals")`
 
-## Installation
+## 🚀 Installation
 
 Use this dependency from a Gradle plugin implementation project:
 
@@ -39,7 +46,7 @@ The generated build for this repository compiles against:
 
 so consumers are expected to be Gradle plugin projects already.
 
-## Quick Start
+## 🚀 Usage
 
 In a Gradle plugin implementation, use the shared helpers to derive the Kotlin-line-specific
 compiler-plugin artifact version and add required compiler flags:
@@ -118,3 +125,15 @@ for the command.
 - `kotlin-acyclic`
 - `kotlin-typeclasses`
 - `kotlin-no-globals`
+
+## Licensing
+
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) for open
+source use.
+
+For commercial use, contact Wabbit Consulting Corporation at `wabbit@wabbit.one`.
+
+## Contributing
+
+Contributions are governed by the repository contribution policy and the Wabbit CLA. See
+`CONTRIBUTING.md` and the files under `legal/`.

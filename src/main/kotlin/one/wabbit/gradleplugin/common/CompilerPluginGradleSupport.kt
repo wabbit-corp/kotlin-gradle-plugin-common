@@ -52,9 +52,9 @@ fun currentKotlinGradlePluginVersion(logger: Logger): String = getKotlinPluginVe
 /**
  * Configures a Kotlin compilation to include a required compiler flag.
  *
- * The helper resolves the compilation's compile task, accesses its `freeCompilerArgs`, and delegates
- * to [addRequiredCompilerFlag]. Failures are wrapped in [GradleException] with messages that name the
- * affected compilation and plugin.
+ * The helper resolves the compilation's compile task, accesses its `freeCompilerArgs`, and
+ * delegates to [addRequiredCompilerFlag]. Failures are wrapped in [GradleException] with messages
+ * that name the affected compilation and plugin.
  *
  * @param kotlinCompilation the compilation whose compile task should receive the flag.
  * @param requiredCompilerFlag the compiler flag that must be present.
@@ -94,8 +94,8 @@ fun configureRequiredCompilerFlag(
 /**
  * Adds [requiredCompilerFlag] to [freeCompilerArgs] if it is not already present.
  *
- * This helper is intentionally idempotent, so Gradle plugins can call it from multiple configuration
- * paths without duplicating the compiler argument.
+ * This helper is intentionally idempotent, so Gradle plugins can call it from multiple
+ * configuration paths without duplicating the compiler argument.
  *
  * @param freeCompilerArgs the Kotlin compiler argument list property to update.
  * @param requiredCompilerFlag the compiler flag that must be present.
