@@ -1,44 +1,34 @@
 # kotlin-gradle-plugin-common
 
-`kotlin-gradle-plugin-common` is a shared helper library for Wabbit Kotlin compiler-plugin Gradle plugins.
+`kotlin-gradle-plugin-common` is a shared Gradle-side helper library for Wabbit Kotlin
+compiler-plugin Gradle plugins.
 
-It exists so plugin families such as `kotlin-acyclic`, `kotlin-typeclasses`, and `kotlin-no-globals` can share the same Gradle-side support code instead of copying small versioning and compiler-option helpers into every repository.
+It exists so plugin families such as `kotlin-acyclic`, `kotlin-typeclasses`, and
+`kotlin-no-globals` can share version negotiation and compiler-option wiring instead of duplicating
+that code in every Gradle plugin repository.
 
 ## Who This Is For
 
-This module is primarily for maintainers of Wabbit compiler-plugin Gradle integrations.
+This module is for maintainers of Wabbit compiler-plugin Gradle integrations.
 
-Most users should not depend on it directly. Normal consumer builds should use one of the published Gradle plugins instead:
+Application builds should not depend on it directly. Normal consumers should apply one of the
+published Gradle plugins instead:
 
 - `id("one.wabbit.acyclic")`
 - `id("one.wabbit.typeclass")`
 - `id("one.wabbit.no-globals")`
 
-## Coordinates
-
-- library artifact: `one.wabbit:kotlin-gradle-plugin-common:0.0.1`
-
-## Status
-
-This library is pre-1.0 and intended for maintainers of Wabbit Gradle plugins.
-
-The API is small, but it is still allowed to evolve while the surrounding compiler-plugin family settles.
-
-## What It Provides
-
-The shared helpers currently cover:
-
-- compiler-plugin artifact version calculation using the repository base version plus the active Kotlin line
-- Kotlin Gradle Plugin version lookup
-- common wiring for required compiler flags on Kotlin compilations
-
 ## Installation
 
-This module is intended for Gradle plugin implementation projects, not for application code.
+Use this dependency from a Gradle plugin implementation project:
 
 ```kotlin
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    implementation("one.wabbit:kotlin-gradle-plugin-common:0.0.1")
+    implementation("one.wabbit:kotlin-gradle-plugin-common:0.1.0")
 }
 ```
 
@@ -51,7 +41,8 @@ so consumers are expected to be Gradle plugin projects already.
 
 ## Quick Start
 
-In a Gradle plugin implementation, use the shared helpers to derive the Kotlin-line-specific compiler-plugin artifact version and add required compiler flags without duplicating the same boilerplate in each repository:
+In a Gradle plugin implementation, use the shared helpers to derive the Kotlin-line-specific
+compiler-plugin artifact version and add required compiler flags:
 
 ```kotlin
 import one.wabbit.gradleplugin.common.compilerPluginArtifactVersion
@@ -66,7 +57,7 @@ val compilerPluginVersion =
     )
 
 dependencies {
-    implementation("one.wabbit:kotlin-gradle-plugin-common:0.0.1")
+    implementation("one.wabbit:kotlin-gradle-plugin-common:0.1.0")
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 }
 
@@ -79,13 +70,39 @@ kotlin.target.compilations.configureEach {
 }
 ```
 
-That is the intended use case: plugin-implementation projects share one helper instead of each repository re-implementing version negotiation and compiler-flag wiring slightly differently.
+That is the intended use case: plugin-implementation projects share one helper instead of each
+repository re-implementing version negotiation and compiler-flag wiring slightly differently.
+
+## Version Suffixes
+
+Wabbit compiler plugins publish Kotlin-line-specific compiler artifacts. The helper:
+
+```kotlin
+compilerPluginArtifactVersion("0.1.0", "2.3.10")
+```
+
+returns:
+
+```text
+0.1.0-kotlin-2.3.10
+```
+
+Snapshot versions keep the `+dev-SNAPSHOT` suffix after the Kotlin-line marker.
+
+## Status
+
+This library is pre-1.0 and intended for Wabbit-maintained Gradle plugins. The API is intentionally
+small, but it can still evolve while the surrounding compiler-plugin family settles.
 
 ## Documentation
 
-- [API reference](docs/api-reference.md)
-- API docs are currently generated locally with `./gradlew dokkaGenerate`, then published from `build/dokka/html/index.html`.
-- Main source entry point: [`src/main/kotlin/one/wabbit/gradleplugin/common/CompilerPluginGradleSupport.kt`](src/main/kotlin/one/wabbit/gradleplugin/common/CompilerPluginGradleSupport.kt)
+- [User guide](docs/user-guide.md)
+- [API reference notes](docs/api-reference.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Development](docs/development.md)
+
+Generated API docs can be built locally with Dokka. See [API reference notes](docs/api-reference.md)
+for the command.
 
 ## Source Compatibility
 
@@ -94,7 +111,7 @@ That is the intended use case: plugin-implementation projects share one helper i
 
 ## Release Notes
 
-- [`CHANGELOG.md`](CHANGELOG.md)
+- [CHANGELOG.md](CHANGELOG.md)
 
 ## Related Repositories
 
